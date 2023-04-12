@@ -20,6 +20,20 @@
                   :reader-macro
                   :collection
                   :literal)
+    # XXX: won't conflict with symbols because of the whitespace?
+    :unreadable (sequence "<"
+                          # XXX: apparently max 32 bytes (see pp.c)
+                          # XXX: not sure if length 0 can happen
+                          (between 1 32 :name-char)
+                          :s+
+                          (some (if (choice :name-char
+                                            :d)
+                                  1))
+                          (look -1 ">")
+                          (look 0 (choice -1
+                                          # XXX: is this right?
+                                          (not (choice :name-char
+                                                       :d)))))
     #
     :reader-macro (choice :fn
                           :quasiquote
@@ -109,13 +123,6 @@
     #
     :keyword (sequence ":"
                        (any :name-char))
-    # XXX: won't conflict with symbols because of the whitespace?
-    :unreadable (sequence "<"
-                          # XXX: apparently max 32 bytes (see pp.c)
-                          # XXX: not sure if length 0 can happen
-                          (between 1 32 :name-char)
-                          :s+
-                          (thru ">"))
     #
     :symbol (some :name-char)
     #
@@ -202,6 +209,22 @@
   "bad escape"
 
   (peg/match jg "<core/peg 0x559B7E81FC30>")
+  # =>
+  @[]
+
+  (peg/match jg "<function >>")
+  # =>
+  @[]
+
+  (peg/match jg "<function ->>>")
+  # =>
+  @[]
+
+  (peg/match jg "<core/s64 100>")
+  # =>
+  @[]
+
+  (peg/match jg "(+ <core/s64 100> 1)")
   # =>
   @[]
 
