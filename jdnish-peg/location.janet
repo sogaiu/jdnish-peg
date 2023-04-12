@@ -293,9 +293,6 @@
                       :code (make-attrs bl bc el ec)))
       @[:code])))
 
-# XXX: backward compatibility
-(def ast par)
-
 (comment
 
   (par "(+ 1 1)")
@@ -417,9 +414,6 @@
     (gen* an-ast buf)
     # XXX: leave as buffer?
     (string buf)))
-
-# XXX: backward compatibility
-(def code gen)
 
 (comment
 
