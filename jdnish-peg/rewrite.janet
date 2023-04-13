@@ -96,9 +96,6 @@
       (array/insert tree 0 :code)
       @[:code])))
 
-# XXX: backward compatibility
-(def ast par)
-
 (comment
 
   (par "(+ 1 1)")
@@ -210,9 +207,6 @@
   (let [buf @""]
     (gen* an-ast buf)
     (string buf)))
-
-# XXX: backward compatibility
-(def code gen)
 
 (comment
 

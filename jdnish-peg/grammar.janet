@@ -3,7 +3,6 @@
     #
     :input (choice :non-form
                    :form)
-
     #
     :non-form (choice :whitespace
                       :comment)
