@@ -2,13 +2,8 @@
 
 # make a version of jg that matches a single form
 (def jg-one
-  (->
-   # jg is a struct, need something mutable
-   (table ;(kvs jg))
-   # just recognize one form
-   (put :main :input)
-   # tried using a table with a peg but had a problem, so use a struct
-   table/to-struct))
+  # just recognize one form
+  (put (table ;(kvs jg)) :main :input))
 
 (comment
 
@@ -70,13 +65,9 @@
 
 # make a capturing version of jg
 (def jg-capture
-  (->
-   # jg is a struct, need something mutable
-   (table ;(kvs jg))
-   # capture recognized bits
-   (put :main ~(capture ,(in jg :main)))
-   # tried using a table with a peg but had a problem, so use a struct
-   table/to-struct))
+  # capture recognized bits
+  (put (table ;(kvs jg))
+       :main ~(capture ,(in jg :main))))
 
 (comment
 
