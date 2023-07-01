@@ -92,7 +92,7 @@
                        "\"")
      #
      :escape (sequence "\\"
-                       (choice (set "0efnrtvz\"\\")
+                       (choice (set `"'0?\abefnrtvz`)
                                (sequence "x" [2 :hex])
                                (sequence "u" [4 :hex])
                                (sequence "U" [6 :hex])
